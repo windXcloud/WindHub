@@ -1,0 +1,44 @@
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+local Window = OrionLib:MakeWindow({Name = "Title of the library", HidePremium = false, SaveConfig = true, ConfigFolder = "OrionTest"})
+-- first
+
+
+-- second
+function autofarm()
+coroutine.wrap(function()
+    while wait() do
+        if getgenv().autofarm == true then
+            pcall(function()
+                for i,v in pairs(game.Workspace.mobs.CCG:GetChildren()) do --enemy location 
+                        if v.Humanoid.Health > 0 and game.Players.LocalPlayer.Character.Humanoid.Health > 0 then
+                            repeat
+                                wait()
+                                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0,5,0) * CFrame.Angles(math.rad(-90),0,0) --distance and angles
+                            until v.Humanoid.Health <= 0 or getgenv().autofarm == false
+                        end
+                    end
+                end)
+            end
+        end
+    end)()
+end
+
+
+
+-- third
+local MainTab = Window:MakeTab({
+	Name = "Main✨️",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+-- fourth
+MainTab:AddToggle({
+	Name = "Auto Farm",
+	Default = false,
+	Callback = function(Value)
+getgenv().autofarm = true		
+          autofarm()
+	end    
+})
+
